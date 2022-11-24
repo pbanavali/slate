@@ -47,9 +47,8 @@ html, body {
   width: 20px;
 }
 
-.toc-wrapper {
+  .toc-wrapper {
   transition: left 0.3s ease-in-out;
-
   overflow-y: auto;
   overflow-x: hidden;
   position: fixed;
@@ -61,6 +60,7 @@ html, body {
   background-color: $nav-bg;
   font-size: 13px;
   font-weight: bold;
+  border-right: 1px solid #b3adad;
 
   // language selector for mobile devices
   .lang-selector {
@@ -75,7 +75,8 @@ html, body {
   .logo {
     display: block;
     max-width: 100%;
-    margin-bottom: $logo-margin;
+    margin: $logo-margin;
+    height: $logo-height;
   }
 
   &>.search {
@@ -112,7 +113,7 @@ html, body {
     transition-property: height, margin;
     transition-duration: 180ms;
     transition-timing-function: ease-in-out;
-    background: $nav-subitem-bg;
+    // background: $nav-subitem-bg;
     &.visible {
       height: 30%;
       margin-bottom: 1em;
@@ -140,8 +141,9 @@ html, body {
   ul, li {
     list-style: none;
     margin: 0;
-    padding: 0;
+    padding: 0 5px;
     line-height: 28px;
+    text-transform: uppercase;
   }
 
   li {
@@ -155,6 +157,7 @@ html, body {
   .toc-link.active {
     background-color: $nav-active-bg;
     color: $nav-active-text;
+    border-radius: 5px;
   }
 
   // this is parent links of the currently selected ToC entry
@@ -165,38 +168,44 @@ html, body {
 
   .toc-list-h2 {
     display: none;
-    background-color: $nav-subitem-bg;
+    // background-color: $nav-subitem-bg;
     font-weight: 500;
   }
 
   .toc-h2 {
     padding-left: $nav-padding + $nav-indent;
     font-size: 12px;
+    text-transform: none;
   }
 
   .toc-footer {
-    padding: 1em 0;
-    margin-top: 1em;
-    border-top: 1px dashed $nav-footer-border-color;
+    padding: 20px;
+    position: fixed;
+    bottom: 0;
+    text-transform: none;
 
-    li,a {
-      color: $nav-text;
+    li{
       text-decoration: none;
+      text-transform: none;
     }
 
-    a:hover {
-      text-decoration: underline;
+    a,a:hover {
+      color: $nav-active-text;
+      text-decoration: none;
+      text-transform: none;
     }
 
     li {
-      font-size: 0.8em;
+      font-size: 1em;
       line-height: 1.7;
       text-decoration: none;
+      text-transform: none;
+      font-weight: 400;
     }
   }
 }
 
-.toc-link, .toc-footer li {
+.toc-link{
   padding: 0 $nav-padding 0 $nav-padding;
   display: block;
   overflow-x: hidden;
@@ -341,35 +350,35 @@ html, body {
   }
 
   // the div is the tocify hidden div for placeholding stuff
-  &>h1, &>h2, &>div {
-    clear:both;
-  }
+  // &>h1, &>h2, &>div {
+  //   clear:both;
+  // }
 
   h1 {
     @extend %header-font;
-    font-size: 25px;
+    font-size: 35px;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
-    margin-bottom: $h1-margin-bottom;
-    margin-top: 2em;
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
+    // margin-bottom: $h1-margin-bottom;
+    // margin-top: 2em;
+    // border-top: 1px solid #ccc;
+    // border-bottom: 1px solid #ccc;
     background-color: #fdfdfd;
   }
 
   h1:first-child, div:first-child + h1 {
     border-top-width: 0;
-    margin-top: 0;
+    // margin-top: 0;
   }
 
   h2 {
     @extend %header-font;
-    font-size: 19px;
-    margin-top: 4em;
-    margin-bottom: 0;
-    border-top: 1px solid #ccc;
-    padding-top: 1.2em;
-    padding-bottom: 1.2em;
+    font-size: 25px;
+    // margin-top: 4em;
+    // margin-bottom: 0;
+    // border-top: 1px solid #ccc;
+    // padding-top: 1.2em;
+    // padding-bottom: 1.2em;
     background-image: linear-gradient(to bottom, rgba(#fff, 0.2), rgba(#fff, 0));
   }
 
@@ -382,13 +391,13 @@ html, body {
 
   h3, h4, h5, h6 {
     @extend %header-font;
-    font-size: 15px;
-    margin-top: 2.5em;
-    margin-bottom: 0.8em;
+    font-size: 20px;
+    // margin-top: 2.5em;
+    // margin-bottom: 0.8em;
   }
 
   h4, h5, h6 {
-    font-size: 10px;
+    font-size: 15px;
   }
 
   hr {
@@ -398,7 +407,7 @@ html, body {
   }
 
   table {
-    margin-bottom: 1em;
+    // margin-bottom: 1em;
     overflow: auto;
     th,td {
       text-align: left;
@@ -428,7 +437,7 @@ html, body {
     }
 
     tr:nth-child(even)>td {
-      background-color: lighten($main-bg,2.4%);
+      background-color: lighten($table-row,2.4%);
     }
   }
 
@@ -630,4 +639,37 @@ html, body {
 
 .copy-clipboard:hover {
   opacity: 0.8;
+}
+
+.content table th {
+  border: 1px solid #b3adad;
+  text-align: left;
+  padding: 5px;
+  background: #000000;
+  color: #ffffff;
+}
+
+.content table td {
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.6;
+  border: 1px solid #b3adad;
+}
+
+.kapcharge-highlight {
+  color: #83D500;
+}
+
+.kapcharge-btn{
+  color: #ffffff;
+    background-color: #83D500;
+    font-weight: 400;
+    text-align: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    padding: 8px 19px;
+    line-height: 1.375rem;
+    border-radius: 0.25rem;
+    text-decoration: none;
 }
