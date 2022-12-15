@@ -23,6 +23,11 @@ under the License.
 ////////////////////////////////////////////////////////////////////////////////
 // GENERAL STUFF
 ////////////////////////////////////////////////////////////////////////////////
+@media screen and (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
 
 html, body {
   color: $main-text;
@@ -433,7 +438,7 @@ html, body {
     }
 
     tr:nth-child(odd)>td {
-      background-color: lighten($main-bg,4.2%);
+      background-color: lighten($table-row-odd,4.2%);
     }
 
     tr:nth-child(even)>td {
@@ -672,4 +677,24 @@ html, body {
     line-height: 1.375rem;
     border-radius: 0.25rem;
     text-decoration: none;
+}
+
+/* Style the button */
+.top-link {
+  transition:       all .25s ease-in-out;
+  position:         fixed;
+  bottom:           0;
+  right:            0;
+  display:          inline-flex;
+  color:            #ffffff;
+
+  cursor:           pointer;
+  align-items:      center;
+  justify-content:  center;
+  margin:           0 2em 2em 0;
+  border-radius:    50%;
+  padding:          .5em;
+  width:            1em;
+  height:           1em;
+  background-color: #83D500;
 }
