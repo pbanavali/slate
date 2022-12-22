@@ -1,8 +1,9 @@
 ---
 title: Kapcharge API Reference
 
-language_tabs: # must be one of https://git.io/vQNgJ
-  - shell: cURL
+# language_tabs: # must be one of https://git.io/vQNgJ
+#   - shell
+#   - c#
 
 includes:
   - errors
@@ -18,32 +19,82 @@ meta:
 toc_footers:
   - <span>&copy;</span>Kapcharge by Kapital Solutions.
   - All Rights Reserved.
-  - v1.0.1 | <a href='https://www.kapital.solutions/terms'>Terms and Conditions</a> | <a href='https://www.kapital.solutions/privacy'>Privacy Policy</a>
+  - v2.0.0 | <a href='https://www.kapital.solutions/terms'>Terms and Conditions</a> | <a href='https://www.kapital.solutions/privacy'>Privacy Policy</a>
 ---
 <a name="top"></a>
 # Introduction
+<p><a target="_blank" href="https://www.kapcharge.com" target="_blank" style="color: #84d404;">Kapcharge</a> provides a full suite of payment processing products by <a target="_blank" href="https://www.Kapital.Solutions" target="_blank" style="color: #3cb5d0;">Kapital Solutions</a> that support online lenders, eCommerce, and subscription businesses.</p>
+<p>Kapcharge provides businesses of all sizes with software and APIs that enable them to accept payments, send payouts, and manage their financial transactions.</p>
+<p>Kapcharge furnishes payment processing services through a single API that allows businesses to connect seamlessly with the banking and payment ecosystem. We provide our customers with the most secure and reliable payment processing service in <b>Canada</b> and the <b>United States</b>, backed by risk management and data analytics.</p>
+
+## Financial Systems in Canada and the United States
+
+<img src="/images/FinancialSystemOverview.png"
+     alt="Financial System Overview"
+     style="float: left; margin-right: 10px;" />
+
+## References & Concepts in Virtual Terminal in both Canada and the United States
+
+
+Kapcharge (Canada)| Kapcharge (USA)|Description
+--------- | -----------|---------
+Institution Number||Customer Institution/Bank Number (maximum 3 characters).
+Transit Number|Routing Number|In Canada, your routing number is a combination of the 5-digit branch number and the 3-digit financial institution number that can be found on the bottom of your personal cheques. In the U.S. a routing number is a 9-digit number. (maximum 50 characters).
+Account Number|Account Number|Customer Account Number (maximum 12 characters).
+Card Number|
+CVV|
+Expiry Month|
+Expiry Year|
+Transaction Type| | "Charge-Receivable/ Credit-Payable" in both US and Canada.
+Transaction Method| |"EFT" only.
+<br/>
+<p>In addition to providing a high-level overview of the API, this document also outlines how to call it successfully.</p>
+
+# <span class="kapcharge-highlight">Kapcharge</span> Payment Gateway
+
+
+## Transaction Flow
+
+The transaction flow takes place among three key stakeholders as shown below
+
+<img src="/images/MovingFundsOverview.png"
+     alt="Transaction Flow Overview"
+     style="float: left; margin-right: 10px;" />
+
+## Transaction Types
+
+<aside class="notice">
+Run in Postman button automatically stay updated with changes in the Kapcharge original API collection, so you always get the most recent version of Kapcharge API collection without having to manually update the collection's link.
+</aside>
+
+## Payment Methods
+
+### United States
+
+<img src="/images/USPaymentOverview.png"
+     alt="US Payment Methods Overview"
+     style="float: left; margin-right: 10px;" />
+
+### Canada
+
+Method|	Description|Duration|Send Transaction|Request Transaction
+--------- | -----------|--------|------------|--------
+EFT|Electronic funds transfer between banks|3 times a day|Yes|Yes
+Interac|Online e-transfers, user receives an e-mail or SMS|Immediately *|Yes|Yes
+Visa Direct|Visa rails to send and pull funds directly to visa debit card	|Immediately|Yes|Yes*
+Credit Card|Credit Card payments/checkout to collect funds	|Immediately	|No	|Yes
+
+<img src="/images/PaymentMethodsOverview.png"
+     alt="Payment Methods Overview"
+     style="float: left; margin-right: 10px;" />
+
+# API Specification
+
+## API Introduction
 
 This technical integration specification document explains the KAPCHARGE Payment Gateway new API. It enables merchant systems to post real-time transaction requests to KAPCHARGE Payment Gateway.
 
 This part of the documentation discusses the technical requirements for real-time integration only. For specifications relating to Batch File Uploading or using Virtual Terminals to create and send the transactions online, please refer to the other services of the Kapcharge.
-
-# <span class="kapcharge-highlight">Kapcharge</span> Payment Gateway
-
-Description| Transaction Types
---------- | -----------
-**CHARGE - Receivable**| Allows the transfer of funds from a customer's bank account to your merchant account. This transaction is completed in real time.
-**CREDIT - Payable** | Allows the transfer of funds from a merchant account directly to a customer's bank account. This transaction is completed in real time.
-
-# API Specification
-
-## Environments
-Staging:
-
-* Application Url: https://api-staging.kapcharge.com/
-
-Production:
-
-*   Please contact your Account Manager to obtain.
 
 ## API Specifics
 * All API requests must pass the header Content-type: application/json; unless explicitly mentioned.
@@ -66,16 +117,20 @@ Once you have access to your staging environment:
 
 4) In Postman find the endpoint /OAuth GET AccessToken within Authentication folder, paste your api {{ClientID}} and {{ClientSecret}} and it's all set.
 
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/18538588-9d0a6b1c-fc9c-4d71-b34c-b9ddc9d6f682?action=collection%2Ffork&collection-url=entityId%3D18538588-9d0a6b1c-fc9c-4d71-b34c-b9ddc9d6f682%26entityType%3Dcollection%26workspaceId%3Dbceb4dfb-9362-4a88-9174-f6595e89dc8c)
+<a target="_blank" href="https://god.gw.postman.com/run-collection/18538588-9d0a6b1c-fc9c-4d71-b34c-b9ddc9d6f682?action=collection%2Ffork&amp;collection-url=entityId%3D18538588-9d0a6b1c-fc9c-4d71-b34c-b9ddc9d6f682%26entityType%3Dcollection%26workspaceId%3Dbceb4dfb-9362-4a88-9174-f6595e89dc8c"><img src="https://run.pstmn.io/button.svg" alt="Run in Postman"></a>
 
 <aside class="notice">
 Run in Postman button automatically stay updated with changes in the Kapcharge original API collection, so you always get the most recent version of Kapcharge API collection without having to manually update the collection's link.
 </aside>
 
 ## <span class="kapcharge-highlight">Kapcharge</span> Swagger API 
- <a href="https://api-staging.kapcharge.com/swagger/index.html" class="kapcharge-btn">Swagger API</a>
+ <a href="https://api-staging.kapcharge.com/swagger/index.html" target="_blank" class="kapcharge-btn">Swagger API</a>
 
 ## Authentication
+
+<img src="/images/AuthenticationAPIOverview.png"
+     alt="Financial System Overview"
+     style="float: left; margin-right: 10px;" />
 
 ### OAuth GET AccessToken
 Bearer Token Authorization is used for all API requests. Multiple API calls can be made securely without requiring authorisation each time with a Bearer Token.
@@ -90,26 +145,18 @@ Bearer Token Authorization is used for all API requests. Multiple API calls can 
   "clientSecret":{{ClientSecret}}
 }
 ```
+
+
 ### HTTP Request
 `Method: POST`<br/>
 `Endpoint: {{Application URL}}/api/v1/OAuth/token`
 
-### Transaction Request
-
-Parameter | Type| Mandatory | Description
---------- | ------- |------- | -----------
-clientId |string| yes | Please contact your Account Manager to obtain.
-clientSecret |string| yes | Please contact your Account Manager to obtain.
 
 > Make sure to replace `{{Application URL}}` with API Application URL as per the environment. 
 
 ```shell
 curl --location -g --request POST '{{Application URL}}/api/v1/OAuth/token' 
 ```
-
-<aside class="notice">
-You must replace <code>{{Application URL}}</code> with API Application URL as per the environment.
-</aside>
 
 > The above command returns JSON structured like this:
 
@@ -122,6 +169,20 @@ You must replace <code>{{Application URL}}</code> with API Application URL as pe
     
 }
 ```
+<aside class="notice">
+You must replace <code>{{Application URL}}</code> with API Application URL as per the environment.
+</aside>
+
+Parameter | Type| Mandatory 
+--------- | ------- |------- 
+clientId |string| yes 
+clientSecret |string| yes 
+
+<aside class="notice">
+Please contact your Account Manager to obtain clientId and clientSecret or <a href="https://kapcharge.com/ach-payments-usa/#callback" target="_blank" style="color: #84d404;">Contact Us</a>
+</aside>
+
+
 ### Responses
 
 Parameter | Description
@@ -130,11 +191,15 @@ accessToken| The authorization token that needs to be used throughout the API re
 tokenType| This will always be "Bearer" token type.
 expiresIn| This is token expiration time (seconds).
 expiresOn| This is token validation end-time (epoch time).
-
 ## EFT Transactions
 
 ### Create Transactions
-### Payload
+
+<img src="/images/CreateTransactionAPI.png"
+     alt="Create Transaction API Overview"
+     style="float: left; margin-right: 10px;" />
+
+### EFT Payload
 
 > EFT Payload
 
@@ -176,6 +241,13 @@ expiresOn| This is token validation end-time (epoch time).
 ### HTTP Request
 `Method: POST`<br/>
 `Endpoint: {{ Application Url }}/api/v1/transaction`
+
+<aside class="notice">
+You must replace <code>{{Application Url}}</code> with Application Url as per the environment.<br/>
+For any parameter related to Country ,please use the <b>alpha-2 standard</b>.<br/>Follow the link below:<br/> 
+</aside>
+
+<a href="https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes" target="_blank" style="color: #84d404;">ISO Country Codes</a>
 
 ### Transaction Request
 
@@ -331,6 +403,12 @@ listOfErrors| Error message (only when there is some error processing request).
 
 
 ### Get a specific transaction
+
+<img src="/images/GetTransactionAPI.png"
+     alt="Get Transaction API Overview"
+     style="float: left; margin-right: 10px;" />
+
+### 
 > Get a specific transaction
 
 ```shell
@@ -342,6 +420,8 @@ curl --location -g --request GET '{{ Application Url }}/api/v1/transaction/12345
 ### HTTP Request
 `Method: GET`<br/>
 `Endpoint: {{ Application Url }}/api/v1/transaction/<TransactionID>`
+
+> The above command returns JSON structured like this:
 
 ```json
 {
@@ -369,7 +449,7 @@ curl --location -g --request GET '{{ Application Url }}/api/v1/transaction/12345
 You must replace <code>{{Application Url}}</code> with Application Url as per the environment.<br/>
 </aside>
 
-> The above command returns JSON structured like this:
+
 
 This endpoint retrieves a specific transaction request based on transaction id.
 
@@ -385,6 +465,19 @@ amountInCents| Transaction amount in cents.
 
 
 ### Delete a specific transaction
+
+### HTTP Request
+`Method: DELETE`<br/>
+`Endpoint: {{Application Url}}/api/v1/transaction/<TransactionID>`
+
+
+### Delete a specific transaction
+
+<img src="/images/DeleteTransactionAPI.png"
+     alt="Delete Transaction API Overview"
+     style="float: left; margin-right: 10px;" />
+
+### 
 
 ### HTTP Request
 `Method: DELETE`<br/>
@@ -469,7 +562,13 @@ The webhooks aim to give your organization a real-time update on returned transa
 `Method: PUT`<br/>
 `Endpoint: {{Application Url}}/api/v1/configuration`
 
+`GET http://example.com/kittens/<ID>`
+
 To enable webhooks, you must send the below information through the API. 
+
+<aside class="notice">
+You must replace <code>{{Application Url}}</code> with Application Url as per the environment.<br/>
+</aside>
 
 Parameter | Description
 --------- | ------- 
@@ -483,10 +582,6 @@ curl --location -g --request PUT '{{Application Url}}/api/v1/configuration'
 ```
 
 > Make sure to replace `{{Application Url}}` with Application Url as per the environment.
-
-<aside class="notice">
-You must replace <code>{{Application Url}}</code> with Application Url as per the environment.<br/>
-</aside>
 
 > The above command returns JSON structured like this:
 
@@ -522,15 +617,15 @@ When a URL is defined, Kapcharge will send a POST request each time there is a s
 `Method: GET`<br/>
 `Endpoint: {{Application Url}}api/v1/configuration/<MerchantID>`
 
+<aside class="notice">
+You must replace <code>{{Application Url}}</code> with Application Url as per the environment.<br/>
+</aside>
+
 ```shell
 curl --location -g --request GET '{{Application Url}}/api/v1/configuration/TEST_123-KC' 
 ```
 
 > Make sure to replace `{{Application Url}}` with Application Url as per the environment.
-
-<aside class="notice">
-You must replace <code>{{Application Url}}</code> with Application Url as per the environment.<br/>
-</aside>
 
 > The above command returns JSON structured like this:
 
@@ -560,6 +655,13 @@ oAuthClientId|Please refer to Contract or contact Account Manager to obtain.
 
 ### Webhook Return Notification
 
+<img src="/images/WebHookReturnAPI.png"
+     alt="Payment Methods Overview"
+     style="float: left; margin-right: 10px;" />
+
+Configure using <a href="#http-request-5" style="color: #84d404;">Webhook Config API</a>
+
+##
 > Webhook Return Notification
 
 ```json
@@ -573,6 +675,82 @@ oAuthClientId|Please refer to Contract or contact Account Manager to obtain.
 Kapcharge sends a return notification to merchants once a transaction is returned. The message body that merchants receive is as follows:
 
 #### Transaction Return Codes (For Canada Only)
+
+Return Code   |	Description
+------------|------------------
+900|	Edit Reject
+901|	NSF (Debit Only)
+902|	Account not found
+903|	Payment Stopped/Recalled
+905|	Account Closed
+907|	No Debit Allowed
+908|	Funds Not Cleared (Debit Only)
+909|	Currency/Account Mismatch
+910|	Payor/Payee Deceased
+911|	Account Frozen
+912|	Invalid/Incorrect Account No.
+914|	Incorrect Payor/Payee Name
+915|	No Agreement Existed
+916|	Not According to Agreement - Personal
+917|	Agreement Revoked – Personal
+918|	No Confirmation/Pre-Notification – Personal
+919|	Not According to Agreement – Business
+920|	Agreement Revoked – Business
+921|	No Confirmation/Pre-Notification –	Business
+922|	Customer Initiated Return
+990|    Institution in Default
+<br/>
+For more details kindly refer to: 
+<a href="https://www.payments.ca/sites/default/files/standard007eng.pdf" target="_blank" style="color: #84d404;">Payments Canada</a> (LIST OF RETURN REASON CODES ,Page 9-10)
+
+### Webhook Return Notification - Test Simulator
+
+This API is protected, which means the user needs to obtain an access token and include the token in the header when calling the API mentioned above. (like our other APIs). 
+
+```shell
+curl --location -g --request POST '{{Application Url}}/api/v1/Transaction/return/12345678' 
+```
+
+> Make sure to replace `{{Application Url}}` with Application Url as per the environment.
+
+### HTTP Request
+`Method: POST`<br/>
+`Endpoint:{{Application Url}}/api/v1/Transaction/return/<TRANSACTION_ID>`
+
+<aside class="notice">
+You must replace <code>{{Application Url}}</code> with Application Url as per the environment.<br/>
+</aside>
+
+###Payload:
+
+The only input required is TRANSACTION_ID. 
+
+### Response: 
+
+* There is no response body
+* API returns 200, 401, or 403
+
+> Webhook Return Notification
+
+```json
+{
+  "transactionId" : 12345678,
+  "returnCode" : "{RETURN CODE}",
+  "returnDateTime" : "{DATETIME}""
+}
+```
+
+### How it will work?
+
+* API will look into Merchant's Webhook configuration <br/>(<i>Refer: Update Webhooks Configuration <a href="#update-a-webhooks-configuration-for-a-specific-merchant" style="color: #84d404;">here</a> or Get Webhooks Configuration <a href="#get-webhooks-configuration-for-a-specific-merchant" style="color: #84d404;">here</a></i> ) 
+* Post a return message to the merchant's webhook URL. 
+* The message body that merchant would receive is as mentioned in Webhook Return Notification <a href="#webhook-return-notification" style="color: #84d404;">here</a>
+
+<aside class="notice">
+Users should have enabled webhook and provide a webhook URL using the configuration API.
+</aside>
+
+<a class="top-link hide" href="#top" style="text-decoration:none">^</a>
 
 Return Code   |	Description
 ------------|------------------
